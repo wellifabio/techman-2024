@@ -1,3 +1,4 @@
+const uri = 'http://localhost:3000/equipamento';
 const user = JSON.parse(window.localStorage.getItem("usertechman"));
 if(user == undefined){
     window.location.href = './index.html';

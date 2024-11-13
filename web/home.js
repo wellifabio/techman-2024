@@ -34,7 +34,7 @@ function listarEquipamentos() {
                         <h2>${e.equipamento}</h2>
                         <p>${e.descricao}</p>
                         <div>
-                            <img src="./assets/comentario.png" onclick="comentarios(${e.id})" class="icone">
+                            <img src="./assets/comentario.png" onclick="exibirComentarios(${e.id})" class="icone">
                             <img onclick="excluirEquipamento(${e.id})" src="./assets/deletar.png" class="icone">
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function listarEquipamentos() {
                         <h2>${e.equipamento}</h2>
                         <p>${e.descricao}</p>
                         <div>
-                            <img src="./assets/comentario.png" onclick="comentarios(${e.id})">
+                            <img src="./assets/comentario.png" onclick="exibirComentarios(${e.id})">
                         </div>
                     </div>
                     `;
@@ -72,8 +72,7 @@ function comfirmaExclusao() {
         });
 }
 
-function comentarios(id){
+function exibirComentarios(id){
     const comentarios = document.getElementById('comentarios');
-    comentarios.innerHTML = '';
     comentarios.classList.remove('oculto');
 }

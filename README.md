@@ -11,3 +11,8 @@ Situação Problema full stack, como solução para o desafio proposto na aula 0
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [VSCode](https://code.visualstudio.com/)
 - [Git](https://git-scm.com/)
+
+.env
+```js
+DATABASE_URL="mysql://root:@localhost:3306/techman"
+```

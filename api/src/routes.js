@@ -11,6 +11,7 @@ router.post('/login', Usuario.login);
 
 router.get('/equipamento', Equipamento.read);
 router.get('/equipamento/:id', Equipamento.read);
+router.delete('/equipamento/:id', Equipamento.del);
 
 router.get('/', (req, res) => { return res.json("API Fábrica de Automóveis respondendo") });
 

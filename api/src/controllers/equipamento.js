@@ -11,11 +11,28 @@ const read = async (req, res) => {
         });
         return res.json(equipamento);
     } else {
-        const equipamentos = await prisma.equipamento.findMany({});
+        const equipamentos = await prisma.equipamento.findMany({
+            where: {
+                ativo: 1
+            }
+        });
         return res.json(equipamentos);
     }
 };
 
+const del = async (req, res) => {
+    const equipamento = await prisma.equipamento.update({
+        where: {
+            id: parseInt(req.params.id)
+        },
+        data: {
+            ativo: 0
+        }
+    });
+    return res.json(equipamento);
+};
+
 module.exports = {
-    read
+    read,
+    del
 };

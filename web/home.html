@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="home.css">
+    <link rel="shortcut icon" href="./assets/icone.png" type="image/x-icon">
     <title>TechMan</title>
 </head>
 
-<body>
+<body onload="listarEquipamentos()">
     <header>
         <img src="./assets/techman.png" alt="TechMan">
         <nav>
@@ -17,8 +18,28 @@
             <img onclick="sair()" src="./assets/logout_sair.png" alt="Sair">
         </nav>
     </header>
-    <main>
+    <main id="equipamentos">
     </main>
+    <div id="excluir" class="modal oculto">
+        <div class="janela">
+            <div class="cabecalho">
+                <h2>Exclusão de equipamento</h2>
+                <button onclick="excluir.classList.add('oculto')">X</button>
+            </div>
+            <p>Atenção! Tem certeza que deseja excluir o equipamento? Essa ação não poderá ser desfeita.</p>
+            <button class="excluir" onclick="comfirmaExclusao()">Excluir</button>
+        </div>
+    </div>
+    <div id="comentarios" class="modal oculto">
+        <div class="janela">
+            <div class="cabecalho">
+                <h2>Comentários</h2>
+                <button onclick="comentarios.classList.add('oculto')">X</button>
+            </div>
+            <div id="listaComentarios"></div>
+            <button class="addComentario" onclick="addComentario()">Adicionar comentário</button>
+        </div>
+    </div>
 </body>
 <script src="home.js">
 </script>

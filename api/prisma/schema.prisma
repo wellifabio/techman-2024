@@ -38,5 +38,5 @@ model Comentario {
   perfil      Int
   data        DateTime    @default(now())
   faz     Perfil      @relation(fields: [perfil], references: [id])
-  recebe      Equipamento @relation(fields: [equipamento], references: [id])
+  recebe      Equipamento @relation(fields: [equipamento], references: [id], onDelete: Cascade)
 }

@@ -32,7 +32,21 @@ const del = async (req, res) => {
     return res.json(equipamento);
 };
 
+const create = async (req, res) => {
+    const { equipamento, descricao, imagem, ativo } = req.body;
+    const equipament = await prisma.equipamento.create({
+        data: {
+            equipamento,
+            descricao,
+            imagem,
+            ativo
+        }
+    });
+    return res.status(201).json(equipament);
+}
+
 module.exports = {
     read,
-    del
+    del,
+    create
 };

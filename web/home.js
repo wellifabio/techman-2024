@@ -1,6 +1,8 @@
-const uri = 'http://localhost:3000/equipamento';
+const uri = 'http://localhost:3000/';
 const user = JSON.parse(window.localStorage.getItem("usertechman"));
-var idAserExcluido = 0;
+const formEquipamento = document.getElementById('formEquipamento');
+var idEquipamento = 0;
+const perfis = [];
 
 if (user == undefined) {
     window.location.href = './index.html';
@@ -16,10 +18,20 @@ function sair() {
     window.location.reload();
 }
 
+function listarPerfis() {
+    fetch(uri + 'perfil')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(p => {
+                perfis.push(p);
+            });
+        });
+}
+
 function listarEquipamentos() {
     const equipamentos = document.getElementById('equipamentos');
     equipamentos.innerHTML = '';
-    fetch(uri)
+    fetch(uri + "equipamento")
         .then(response => response.json())
         .then(data => {
             data.forEach(e => {
@@ -28,7 +40,7 @@ function listarEquipamentos() {
                 if (user.perfil == 2)
                     card.innerHTML = `
                     <div>
-                        <img class="ilustracao" src="./assets/${e.imagem}">
+                        <img class="ilustracao" src="${e.imagem}" alt="imagem do equipamento">
                     </div>
                     <div>
                         <h2>${e.equipamento}</h2>
@@ -42,7 +54,7 @@ function listarEquipamentos() {
                 else
                     card.innerHTML = `
                     <div>
-                        <img src="./assets/${e.imagem}">
+                        <img class="ilustracao" src="${e.imagem}">
                     </div>
                     <div>
                         <h2>${e.equipamento}</h2>
@@ -60,11 +72,11 @@ function listarEquipamentos() {
 function excluirEquipamento(id) {
     const excluir = document.getElementById('excluir');
     excluir.classList.remove('oculto');
-    idAserExcluido = id;
+    idEquipamento = id;
 }
 
 function comfirmaExclusao() {
-    fetch(uri + '/' + idAserExcluido, {
+    fetch(uri + 'equipamento/' + idEquipamento, {
         method: 'DELETE'
     })
         .then(() => {
@@ -72,7 +84,83 @@ function comfirmaExclusao() {
         });
 }
 
-function exibirComentarios(id){
+function exibirComentarios(id) {
+    idEquipamento = id;
     const comentarios = document.getElementById('comentarios');
     comentarios.classList.remove('oculto');
+    const listaComentarios = document.getElementById('listaComentarios');
+    listaComentarios.innerHTML = '';
+    fetch(uri + 'comentario/equipamento/' + id)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'comentario';
+                card.innerHTML = `
+                    <div>
+                        <h2>${perfis[c.perfil - 1].perfil} - ${new Date(c.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</h2>
+                        <p>${c.comentario}</p>
+                    </div>
+                    `;
+                listaComentarios.appendChild(card);
+            });
+        });
 }
+
+function habilitarNComent(e) {
+    const nComent = document.getElementById('nComent');
+    if (e.value.length > 0)
+        nComent.removeAttribute('disabled');
+    else
+        nComent.setAttribute('disabled', 'true');
+}
+
+function cadastrarComentario(comentario) {
+    const dados = {
+        comentario: comentario.value,
+        perfil: user.perfil,
+        equipamento: idEquipamento
+    }
+    console.log(dados);
+    fetch(uri + 'comentario', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    })
+        .then((res) => {
+            if (res.status == 201) {
+                alert('Sucesso! Comentário cadastrado para o equipamento.');
+                window.location.reload();
+            } else {
+                alert('Erro ao cadastrar comentário');
+            }
+        });
+}
+
+formEquipamento.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const dados = {
+        equipamento: formEquipamento.nome.value,
+        descricao: formEquipamento.descricao.value,
+        imagem: formEquipamento.imagem.value,
+        ativo: formEquipamento.ativo.checked ? 1 : 0
+    }
+    console.log(dados);
+    fetch(uri + 'equipamento', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    })
+        .then((res) => {
+            if (res.status == 201) {
+                alert('Sucesso! Equipamento cadastrado.');
+                window.location.reload();
+            } else {
+                alert('Erro ao cadastrar equipamento');
+            }
+        });
+});

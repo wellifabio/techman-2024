@@ -37,7 +37,13 @@ const login = async (req, res) => {
     return res.json(usuario);
 };
 
+const readPerfis = async (req, res) => {
+    const perfis = await prisma.perfil.findMany({});
+    return res.json(perfis);
+};
+
 module.exports = {
     read,
-    login
+    login,
+    readPerfis
 };

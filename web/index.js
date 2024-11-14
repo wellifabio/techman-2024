@@ -54,4 +54,5 @@ function remove() {
     var pin = document.getElementById('pin');
     mascara.value = '';
     pin.value = '';
+    document.getElementById('send').disabled = true;
 }

@@ -20,7 +20,7 @@ npm install
 ```
 - 4 Crie o arquivo **.env** na pasta **api** e adicione a URL do banco de dados:
 ```js
-DATABASE_URL="mysql://root:@localhost:3306/techman"
+DATABASE_URL="mysql://root@localhost:3306/techman?schema=public&timezone=UTC"
 ```
 - 5 Execute o comando para criar as tabelas no banco de dados e semear com dados iniciais:
 ```bash

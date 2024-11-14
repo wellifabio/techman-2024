@@ -36,3 +36,4 @@ npx nodemon
 ```
 - 7 Execute o Front-End navegando até a pasta **web** abrindo o arquivo index.html no navegador: com **Live Server** ou **Open with Live Server** ou **Open with Default Browser**
 ![Print da tela de login](./docs/print-login.png)
+![Print da tela de login](./docs/print-home.png)

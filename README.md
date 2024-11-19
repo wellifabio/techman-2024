@@ -41,5 +41,5 @@ npx nodemon
 ### DER
 ![DER](./docs/mer-der.png)
 
-### UML - Diagrama de Classes
+### UML - Diagrama de Atividades
 ![UML](./docs/uml-atividades.png)
